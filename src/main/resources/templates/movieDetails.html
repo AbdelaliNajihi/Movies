@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
+<link rel="icon" href="/assets/movies.jpg" />
+<title>Movie Details</title>
+</head>
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container mt-5">
+		<div class="row">
+			<ul class="list-group">
+				<li class="list-group-item d-flex justify-content-between">
+					<h5>Title :</h5>
+					<h5 th:text="${movie.title}"></h5>
+				</li>
+				<li class="list-group-item d-flex justify-content-between">
+					<h5>Director :</h5>
+					<h5 th:text="${movie.director}"></h5>
+				</li>
+				<li class="list-group-item d-flex justify-content-between">
+					<h5>Genre :</h5>
+					<h5 th:text="${movie.genre}"></h5>
+				</li>
+				<li class="list-group-item d-flex justify-content-between">
+					<h5>Release Date :</h5>
+					<h5 th:text="${movie.releaseDate}"></h5>
+				</li>
+			</ul>
+			<div class="card" style="width: 45%; margin-left: 10%">
+				<img th:if="${hasPoster}"
+					th:src="@{/movie/poster(title=${movie.title})}"
+					class="card-img-top" alt="..."> <img th:unless="${hasPoster}"
+					th:src="@{/assets/default-poster.png}" class="card-img-top"
+					alt="...">
+			</div>
+		</div>
+	</div>
+</body>
+</html>

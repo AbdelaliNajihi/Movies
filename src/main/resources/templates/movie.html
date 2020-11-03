@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/5.12.0/css/all.css}" />
+<link rel="icon" href="/assets/movies.jpg" />
+<title>New Movie</title>
+</head>
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container" style="margin-top: 10%">
+		<div class="alert alert-danger" th:if="${movieExists}">This
+			movie already exists !</div>
+		<div class="alert alert-success" th:if="${success}"
+			th:text="${success}"></div>
+		<form th:action="@{/addmovie}" th:object="${movie}" method="post"
+			enctype="multipart/form-data">
+			<div class="form-row">
+				<div class="form-group col-6">
+					<input type="text" class="form-control" placeholder="Title"
+						th:field="*{title}"> <small class="text text-danger"
+						th:errors="*{title}"></small>
+				</div>
+				<div class="form-group col-6">
+					<input type="text" class="form-control" placeholder="Director"
+						th:field="*{director}"> <small class="text text-danger"
+						th:errors="*{director}"></small>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-6">
+					<select class="custom-select" th:field=*{genre}>
+						<option selected value="">Choose...</option>
+						<option th:each="gnrs:${genres}" th:value="${gnrs}"
+							th:text="${gnrs}"></option>
+					</select> <small class="text text-danger" th:errors="*{genre}"></small>
+				</div>
+				<div class="form-group col-6">
+					<input type="date" class="form-control" placeholder="Release date"
+						th:field="*{releaseDate}"> <small class="text text-danger"
+						th:errors="*{releaseDate}"></small>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="file" class="form-control-file"
+					placeholder="Movie poster" name="file"> <small
+					class="text text-danger" th:if="${fileEmpty}">Please select
+					a file to upload</small>
+			</div>
+			<div class="form-group">
+				<textarea class="form-control" placeholder="Description" rows="3"
+					th:field="*{description}"></textarea>
+				<small class="text text-danger" th:errors="*{description}"></small>
+			</div>
+			<button type="submit" class="btn btn-primary btn-block">Save
+				Movie</button>
+		</form>
+	</div>
+
+
+	<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+</body>
+</html>

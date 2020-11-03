@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/5.12.0/css/all.css}" />
+<link rel="icon" href="/assets/movies.jpg" />
+<title>Login</title>
+</head>
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container">
+		<div th:if="${param.error != null}"
+			class="alert alert-danger text-center">Incorrect username or
+			password , please try again.</div>
+		<div th:if="${param.logout != null}"
+			class="alert alert-primary text-center">You've been
+			successfully logged out.</div>
+		<div th:if="${succRegistration}"
+			class="alert alert-success text-center">Registration Success !!
+			Please verify your email address.</div>
+	</div>
+	<div class="row" style="height: 80vh;">
+		<div class="card text-center shadow mx-auto my-auto"
+			style="width: 18rem; border-radius: 5%;">
+			<div class="card-body">
+				<h5 class="card-title font-weight-bolder mb-5">Sign in to
+					continue</h5>
+				<form th:action="@{/processLogin}" method="post">
+					<div class="form-group">
+						<input type="text" class="form-control" id="username" name="username"
+							placeholder="Username..." autocomplete="off"
+							onkeyup="change()">
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control mb-2" name="password"
+							placeholder="Password..."> <a href="/reset-password"
+							class="float-right mb-2">Forgot Password ?</a>
+					</div>
+					<div class="form-group float-left">
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input"
+								id="exampleCheck1"> <label class="form-check-label"
+								for="exampleCheck1">Remember me</label>
+						</div>
+					</div>
+					<div>
+						<button class="btn btn-primary btn-block mb-3" type="submit">Sign
+							in</button>
+					</div>
+					<div class="text-center">
+						Don't have an account? <a href="/registration">Create One</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/login.js}"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/bootstrap-select/css/bootstrap-select.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/bootstrap-select-country/css/bootstrap-select-country.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/bootstrap-select-country/css/bootstrap4-support.css}">
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/5.12.0/css/all.css}" />
+<link rel="icon" href="/assets/movies.jpg" />
+<title>Edit User</title>
+</head>
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container mt-5">
+		<form th:action="@{/user/update}" th:object="${userApp}" method="post"
+			enctype="multipart/form-data">
+			<input type="hidden" th:field="*{userId}">
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<input type="text" class="form-control" placeholder="Username"
+						th:field="*{username}"> <small class="text text-danger"
+						th:errors="*{username}"></small> <small class="text text-danger"
+						th:if="${duplicateUsername}">This username already exists</small>
+				</div>
+				<div class="form-group col-md-6">
+					<input type="hidden" class="form-control" placeholder="Password"
+						th:field="*{password}"> <small class="text text-danger"
+						th:errors="*{password}"></small>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<input type="text" class="form-control" placeholder="First Name"
+						th:field="*{firstName}"> <small class="text text-danger"
+						th:errors="*{firstName}"></small>
+				</div>
+				<div class="form-group col-md-4">
+					<input type="text" class="form-control" placeholder="Last Name"
+						th:field="*{lastName}"> <small class="text text-danger"
+						th:errors="*{lastName}"></small>
+				</div>
+				<div class="form-group col-md-4">
+					<select class="custom-select" th:field="*{gender}">
+						<option th:value="${genderSaved}" th:text="${genderSaved}"></option>
+						<option th:each="gndr:${genders}" th:value="${gndr}"
+							th:text="${gndr}"></option>
+					</select> <small class="text text-danger" th:errors="*{gender}"></small>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<input type="email" class="form-control" placeholder="Email"
+						th:field="*{email}"> <small class="text text-danger"
+						th:errors="*{email}"></small> <small class="text text-danger"
+						th:if="${duplicateEmail}">This email already exists</small>
+				</div>
+				<div class="form-group col-md-4">
+					<input type="tel" class="form-control" placeholder="Phone Number"
+						th:field="*{phoneNumber}"> <small class="text text-danger"
+						th:errors="*{phoneNumber}"></small>
+				</div>
+				<div class="form-group col-md-4">
+					<select class="form-control selectpicker countrypicker"
+						data-flag="true" data-default="MA" th:field="*{country}">
+					</select> <small class="text text-danger" th:errors="*{country}"></small>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-success btn-block">Update</button>
+		</form>
+	</div>
+
+
+	<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/bootstrap-select/js/bootstrap-select.min.js}"></script>
+	<script
+		th:src="@{/assets/bootstrap-select-country/js/bootstrap-select-country.min.js}"></script>
+	<script>
+		$('.countrypicker').countrypicker();
+	</script>
+</body>
+</html>

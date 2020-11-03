@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/webjars/font-awesome/5.12.0/css/all.css}" />
+<link rel="icon" href="/assets/movies.jpg" />
+<title>Profile</title>
+</head>
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container">
+		<div th:if="${userUpdated}" class="alert alert-success text-center"
+			role="alert">Successfully Updated</div>
+		<div th:if="${userApp != null}" class="card text-center mt-5 mx-auto"
+			style="width: 18rem;">
+			<div class="card-body">
+				<div class="row d-flex justify-content-between">
+					<a class="badge badge-success"
+						th:href="@{/user/edit(userId=${userApp?.userId})}"><i
+						class="fas fa-user-edit fa-lg" style="color: white"></i></a> <a
+						class="badge badge-primary" data-toggle="modal"
+						data-target="#uploadUserImageForm"><i
+						class="fas fa-image fa-lg" style="color: white;"></i></a> <a
+						class="badge badge-danger" th:href="@{/user/changepassword}"><i
+						class="fas fa-key fa-lg" style="color: white"></i></a>
+				</div>
+				<img th:if="${hasAnImage}"
+					th:src="@{/user/image(userId=${userApp?.userId})}" alt="..."
+					class="rounded-circle" width="170" height="170"> <img
+					th:unless="${hasAnImage}" th:src="@{/assets/unknown-user.png}"
+					alt="..." class="rounded-circle" width="170" height="170">
+				<h5 th:text="${userApp?.firstName}+' '+${userApp?.lastName}"></h5>
+				<p>
+					<i class="fas fa-user"></i> <span th:text="${userApp?.username}"></span>
+				</p>
+				<p>
+					<i class="fas fa-envelope"></i> <span th:text="${userApp?.email}"></span>
+				</p>
+				<p>
+					<i class="fas fa-phone"></i> <span
+						th:text="${userApp?.phoneNumber}"></span>
+				</p>
+				<p>
+					<i class="fas fa-venus-mars"></i> <span
+						th:text="${userApp?.gender}"></span>
+				</p>
+				<p>
+					<i class="fas fa-map-marker-alt"></i> <span
+						th:text="${userApp?.country}"></span>
+				</p>
+			</div>
+		</div>
+		<!--  -->
+		<div th:unless="${userApp != null}"
+			class="card text-center mt-5 mx-auto" style="width: 18rem;">
+			<div class="card-body">
+				<div class="row d-flex justify-content-between">
+					<a class="badge badge-success"
+						th:href="@{/user/edit(userId=${u?.userId})}"><i
+						class="fas fa-user-edit fa-lg" style="color: white"></i></a> <a
+						class="badge badge-primary"><i class="fas fa-image fa-lg"
+						style="color: white;"></i></a> <a class="badge badge-danger"
+						th:href="@{/user/changepassword}"><i class="fas fa-key fa-lg"
+						style="color: white"></i></a>
+				</div>
+				<img th:if="${hasAnImage}"
+					th:src="@{/user/image(userId=${u?.userId})}" alt="..."
+					class="rounded-circle" width="170" height="170"> <img
+					th:unless="${hasAnImage}" th:src="@{/assets/unknown-user.png}"
+					alt="..." class="rounded-circle" width="170" height="170">
+				<h5 th:text="${u?.firstName}+' '+${u?.lastName}"></h5>
+				<p>
+					<i class="fas fa-user"></i> <span th:text="${u?.username}"></span>
+				</p>
+				<p>
+					<i class="fas fa-envelope"></i> <span th:text="${u?.email}"></span>
+				</p>
+				<p>
+					<i class="fas fa-phone"></i> <span th:text="${u?.phoneNumber}"></span>
+				</p>
+				<p>
+					<i class="fas fa-venus-mars"></i> <span th:text="${u?.gender}"></span>
+				</p>
+				<p>
+					<i class="fas fa-map-marker-alt"></i> <span th:text="${u?.country}"></span>
+				</p>
+			</div>
+		</div>
+
+		<!--  Modal -->
+		<div class="modal fade" id="uploadUserImageForm"
+			data-backdrop="static" data-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered justify-content-center">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form th:action="@{/user/upload}" method="post"
+						enctype="multipart/form-data">
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="exampleFormControlFile1">Choose your image</label> <input
+									type="file" class="form-control-file"
+									id="exampleFormControlFile1" name="file">
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">
+								Upload <i class="fas fa-image fa-lg" style="color: white;"></i>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+</body>
+</html>
